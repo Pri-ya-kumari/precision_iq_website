@@ -1,0 +1,21 @@
+<!-- Header with Back Button -->
+<header class="detail-header">
+  <button class="back-btn" (click)="goBack()" title="Back">
+    <mat-icon class="back-icon">arrow_back</mat-icon>
+  </button>
+</header>
+
+
+<!-- News Content -->
+<div class="detail-container" *ngIf="blog">
+  <img [src]="blog.image" class="detail-image" />
+
+  <h2 class="detail-heading">{{ blog.heading }}</h2>
+
+  <div class="detail-description" [innerHTML]="blog.description"></div>
+
+  <p class="detail-time">
+    Published on: {{ blog.createdAt?.toDate() | date: 'medium' }}
+  </p>
+</div>
+<app-footer></app-footer>

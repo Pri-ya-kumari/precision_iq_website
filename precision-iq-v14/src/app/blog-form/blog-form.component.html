@@ -1,0 +1,88 @@
+<!-- Header -->
+<header class="app-header">
+  <div class="header-title">News Panel</div>
+  <button class="signout-btn" (click)="signOut()" title="sign out">
+    <img src="assets/images/logout.png" alt="Logout" class="icon" />
+  </button>
+</header>
+
+<div class="container">
+  <!-- Left Form -->
+  <div class="form-area">
+    <h2>Add News</h2>
+    <form [formGroup]="blogForm" (ngSubmit)="submitBlog()" class="form">
+      <input formControlName="heading" placeholder="Enter Heading" class="form-input" required />
+
+      <textarea formControlName="description" placeholder="Enter Description" rows="4" class="form-textarea"
+        required></textarea>
+
+      <div class="upload-box" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+        <label for="fileInput">
+          <img src="assets/images/upload-icon.svg" width="40" />
+          <p class="hint-text">drop a file here</p>
+          <p class="file-note">*File supported: .png, .jpg & .webp</p>
+        </label>
+        <input id="fileInput" type="file" accept=".png, .jpg, .jpeg, .webp" (change)="uploadImage($event)" hidden />
+      </div>
+
+      <div class="image-preview-wrapper" *ngIf="imageURL">
+        <img [src]="imageURL" class="image-preview" />
+        <button type="button" class="remove-btn" (click)="removeImage()">✕</button>
+      </div>
+      <button type="submit" class="btn-submit">Submit</button>
+    </form>
+  </div>
+
+<!-- Right List -->
+<div class="list-area">
+  <h3>All news</h3>
+  <div class="scroll-list">
+    <div *ngFor="let blog of blogs" class="blog-card">
+      <img [src]="blog.image" alt="Image" class="card-img" />
+
+      <div class="card-content">
+        <h4 class="blog-link" (click)="goToBlogDetail(blog.id)">
+          {{ blog.heading }}
+        </h4>
+
+        <!-- 📝 Description -->
+        <div [innerHTML]="getTruncatedDescription(blog.description)"></div>
+
+        <!-- 🕒 Date -->
+        <p class="created-time" *ngIf="blog.createdAt">
+          Created on: {{ blog.createdAt.toDate() | date: 'medium' }}
+        </p>
+
+        <!-- ✅ Status -->
+        <p class="status-text" [ngStyle]="{ color: blog.isHidden ? 'red' : 'green' }">
+          Status: {{ blog.isHidden ? 'Hidden' : 'Visible' }}
+        </p>
+
+        <!-- ✏️ Action Icons -->
+        <div class="card-actions">
+          <!-- Edit -->
+          <button mat-icon-button class="icon-btn" (click)="editBlog(blog)" matTooltip="Edit">
+            <mat-icon style="color: grey; font-size: 19px;">edit</mat-icon>
+          </button>
+
+          <!-- Delete -->
+          <button mat-icon-button class="icon-btn" (click)="deleteBlog(blog.id)" matTooltip="Delete">
+            <mat-icon style="color: grey; font-size: 19px;">delete</mat-icon>
+          </button>
+
+          <!-- Hide / Unhide -->
+          <button mat-icon-button class="icon-btn"
+                  (click)="toggleHideBlog(blog)" 
+                  [matTooltip]="blog.isHidden ? 'Unhide' : 'Hide'">
+            <mat-icon style="color: grey; font-size: 19px;" *ngIf="!blog.isHidden">visibility_off</mat-icon>
+            <mat-icon style="color: grey; font-size: 19px;" *ngIf="blog.isHidden">visibility</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+<app-footer></app-footer>
