@@ -8,19 +8,12 @@ import { NewsDetailsComponent } from './news-details/news-details.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full',
-  },
-  {
-    path: 'home',
-    component: HomepageComponent,
+    component: HomepageComponent, // Show this component when visiting the root path
   },
   { path: 'login', component: LoginComponent },
   { path: 'create-blog', component: BlogFormComponent },
-  { path: 'NewsDetails/:id', component: NewsDetailsComponent }
-
-
-
+  { path: 'news-details/:id', component: NewsDetailsComponent },
+  { path: '**', redirectTo: '' }  // Redirect any other invalid path to the root
 ];
 
 @NgModule({
