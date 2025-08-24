@@ -8,7 +8,7 @@
 }
 .header-title{
  font-size: 1.6rem;
-  color: white;
+  color: #002C4A;
   font-weight: 600;
   font-family: "Manrope", sans-serif;
 }
@@ -27,7 +27,7 @@
 
 .form h2 {
   margin-bottom: 1rem;
-  color: #0088cc;
+  color: #002C4A;
 }
 
 .form-input,
@@ -79,7 +79,7 @@
 
 .signout-btn {
   background-color: transparent;
-  border: 2px solid #FD9F10;
+  border: 2px solid #002C4A;
   border-radius: 4px;
   padding: 6px 10px;
   cursor: pointer;
@@ -94,13 +94,14 @@
 
 .btn-submit {
   width: 100%;
-  background-color: #FD9F10;
-  color: black;
+  background-color: #002C4A;
+  color: white;
   padding: 12px;
   border: none;
   border-radius: 8px;
   font-weight: bold;
   font-size: 16px;
+  font-weight: 400;
   cursor: pointer;
   transition: 0.3s ease;
 }
@@ -117,15 +118,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #000;
-  color: #FD9F10;
+  background-color: white;
+  color: #002C4A;
   padding: 1rem 2rem;
   font-size: 18px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      backdrop-filter: blur(10px); /* Blur effect */
+  transition: all 0.3s ease-in-out;
+
   font-weight: 400;
-  border-bottom: 1px solid #005a8d;
   border-radius: 0px 0px 8px 8px;
 }
-.icon{
+.icons{
   width: 20px;
 }
 .btntext{
@@ -167,7 +171,7 @@
 
 .list-area h3 {
   margin-bottom: 1rem;
-  color: #FD9F10;
+  color: #002C4A;
 }
 
 .scroll-list {

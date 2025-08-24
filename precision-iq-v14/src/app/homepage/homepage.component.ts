@@ -1,4 +1,4 @@
-import { AfterViewInit,Component, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,15 +7,20 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })
-export class HomepageComponent implements AfterViewInit {
-  constructor(private route: ActivatedRoute, private elRef: ElementRef, private router: Router, private firestore: AngularFirestore) { }
+export class HomepageComponent implements AfterViewInit, OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private elRef: ElementRef,
+    private router: Router,
+    private firestore: AngularFirestore
+  ) {}
 
-
+  // -------------------- SERVICE CARDS --------------------
 serviceCards = [
-  {
-    icon: '❤️',
-    title: 'Our Story Is Personal',
-    description: `But beyond the science, our story is personal. We started PrecizionIQ with a single, powerful conviction.`,
+{
+    icon: '🌍',
+    title: 'Proven Innovation. Real-World Impact.',
+    description: `The PrecizionIQ team has a strong track record of translating research into real-world solutions that span from therapeutics to agbiotech breakthroughs. We're applying this same translational rigor to redefine prenatal diagnostics for a broader, more inclusive future. With strong academic and clinical partnerships, and a deep commitment to equitable healthcare, we are poised to bring precision diagnostics into mainstream prenatal care — making them accessible not just to a few, but to all.`,
     expanded: false,
   },
   {
@@ -28,41 +33,32 @@ serviceCards = [
     icon: '🧬',
     title: 'A New Generation of Prenatal Diagnostics',
     description: `Our mission is to deliver diagnostics that are early, non-invasive, affordable, and clinically actionable. We’re reimagining how prenatal care is accessed and delivered, leveraging:
-• Cutting-edge metabolomics and small-molecule profiling
-• High-resolution mass spectrometry platforms
-• Proprietary biomarker panels built on validated science.`,
+    • Cutting-edge metabolomics and small-molecule profiling
+    • High-resolution mass spectrometry platforms
+    • Proprietary biomarker panels built on validated science.`,
     expanded: false,
   },
-  {
-    icon: '🌍',
-    title: 'Proven Innovation. Real-World Impact.',
-    description: `The PrecizionIQ team has a strong track record of translating research into real-world solutions that span from therapeutics to agbiotech breakthroughs. We're applying this same translational rigor to redefine prenatal diagnostics for a broader, more inclusive future. With strong academic and clinical partnerships, and a deep commitment to equitable healthcare, we are poised to bring precision diagnostics into mainstream prenatal care — making them accessible not just to a few, but to all.`,
+    {
+    icon: '❤️',
+    title: 'Our Story Is Personal',
+    description: `But beyond the science, our story is personal. We started PrecizionIQ with a single, powerful conviction.`,
     expanded: false,
-  }
+  },
 ].map(card => {
   const words = card.description.trim().split(/\s+/);
   return {
     ...card,
     showReadMore: words.length > 30,
-    previewLimit: words.slice(0, 30).join(' ').length,
+    previewLimit: 120 // ✅ fix: approx 120 chars ka preview दिखेगा
   };
 });
- ngAfterViewInit() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        } else {
-          entry.target.classList.remove('active'); // Remove so it can animate again
-        }
-      });
-    }, { threshold: 0.2 });
 
-    document.querySelectorAll('.fade-in').forEach(el => {
-      observer.observe(el);
-    });
+
+  toggleExpand(index: number): void {
+    this.serviceCards[index].expanded = !this.serviceCards[index].expanded;
   }
 
+  // -------------------- BENEFITS --------------------
   benefits = [
     {
       icon: '🕑',
@@ -102,25 +98,14 @@ serviceCards = [
     };
   });
 
-
-  toggleExpand(index: number): void {
-    this.serviceCards[index].expanded = !this.serviceCards[index].expanded;
-  }
-  login() {
-    this.router.navigate(['/login'])
-  }
-
-  scrollToSection(sectionId: string): void {
-    const section = this.elRef.nativeElement.querySelector('#' + sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-  blogs: any[] = [];
-  blog: any;
+  // -------------------- SLIDER --------------------
+  private slideIndex: number = 0;
+  private intervalId: any;
 
   ngOnInit(): void {
     this.loadNewsFromFirebase();
+
+    // blog detail if needed
     const blogId = this.route.snapshot.paramMap.get('id');
     if (blogId) {
       this.firestore.collection('blogs').doc(blogId).get().subscribe(doc => {
@@ -129,7 +114,85 @@ serviceCards = [
         }
       });
     }
+
+    this.showSlide(this.slideIndex); // ✅ sirf initial render ke liye
+
   }
+
+  private startSlider(): void {
+    this.showSlide(this.slideIndex);
+
+    this.intervalId = setInterval(() => {
+      this.nextSlide();
+    }, 6000); // Auto slide every 6s
+  }
+
+
+showSlide(index: number): void {
+  const slides: NodeListOf<HTMLElement> = document.querySelectorAll('.hero-slide');
+  const dots: NodeListOf<HTMLElement> = document.querySelectorAll('.dot');
+
+  if (slides.length === 0) return;
+
+  this.slideIndex = (index + slides.length) % slides.length;
+
+  slides.forEach((slide, i) => {
+    slide.style.display = i === this.slideIndex ? 'flex' : 'none';
+  });
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === this.slideIndex);
+  });
+}
+
+nextSlide(): void {
+  this.showSlide(this.slideIndex + 1);
+}
+
+prevSlide(): void {
+  this.showSlide(this.slideIndex - 1);
+}
+
+setSlide(index: number): void {
+  this.showSlide(index);
+}
+
+
+  // -------------------- SCROLL + LOGIN --------------------
+  login() {
+    this.router.navigate(['/login']);
+  }
+
+  scrollToSection(sectionId: string): void {
+    const section = this.elRef.nativeElement.querySelector('#' + sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // -------------------- BLOGS --------------------
+  blogs: any[] = [];
+  blog: any;
+
+  loadNewsFromFirebase() {
+    this.firestore.collection('blogs', ref =>
+      ref
+        .where('isHidden', '==', false)
+        .orderBy('createdAt', 'desc')
+        .limit(5)
+    )
+    .snapshotChanges()
+    .subscribe(data => {
+      this.blogs = data.map(item => {
+        const blogData = item.payload.doc.data() as { [key: string]: any };
+        return {
+          id: item.payload.doc.id,
+          ...blogData
+        };
+      });
+    });
+  }
+
   goToBlogDetail(id: string) {
     if (!id) {
       console.error('Blog ID is undefined');
@@ -138,25 +201,20 @@ serviceCards = [
     this.router.navigate(['/NewsDetails', id]);
   }
 
-  loadNewsFromFirebase() {
-  this.firestore.collection('blogs', ref =>
-    ref
-      .where('isHidden', '==', false) // ✅ सिर्फ visible blogs लाने के लिए filter
-      .orderBy('createdAt', 'desc')
-      .limit(5)
-  )
-  .snapshotChanges()
-  .subscribe(data => {
-    this.blogs = data.map(item => {
-      const blogData = item.payload.doc.data() as { [key: string]: any };
-      return {
-        id: item.payload.doc.id,
-        ...blogData
-      };
+  // -------------------- ANIMATIONS --------------------
+  ngAfterViewInit() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        } else {
+          entry.target.classList.remove('active');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
     });
-  });
-}
-
-
-
+  }
 }
