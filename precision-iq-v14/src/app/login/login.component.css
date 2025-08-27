@@ -1,6 +1,6 @@
 /* Outer container */
 .login-container {
-    background-color:black;
+    background-color:white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,8 +21,10 @@
 
 /* Logo */
 .imglogo {
-    width: 40px;
-    height: 40px;
+    width: 140px;
+    height: 120px;
+    position: relative;
+    margin-bottom: -30px;
   color: #3cc5dc;
 }
 
@@ -38,7 +40,7 @@
 
 /* Button */
 .btn-primary {
-  background-color: #FD9F10;
+  background-color: #002C4A;
   color: white;
   padding: 12px;
   width: 100%;
@@ -49,5 +51,5 @@
 }
 
 .btn-primary:hover {
-  background-color: #99610c;
+  opacity: 0.8;
 }

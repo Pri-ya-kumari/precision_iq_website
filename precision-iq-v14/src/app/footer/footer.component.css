@@ -1,0 +1,51 @@
+/* Common Footer Styles */
+footer {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+footer a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer hr {
+  opacity: 0.2;
+}
+
+/* Headings */
+.footer-heading {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 🔹 Dark Blue Theme */
+.footer-dark {
+  background: linear-gradient(135deg, #0a1f44, #061d3d);
+  color: #e0e6f1;
+}
+
+.footer-dark a {
+  color: #fff;
+}
+
+.footer-dark a:hover {
+  color: #00c2ff;
+}
+
+/* ⚪ White Theme (minimal clean) */
+.footer-light {
+  background: #ffffff;
+  color: #333;
+  border-top: 1px solid #ddd;
+}
+
+.footer-light a {
+  color: #007bff;
+}
+
+.footer-light a:hover {
+  color: #0056b3;
+}
