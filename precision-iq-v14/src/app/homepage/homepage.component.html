@@ -39,7 +39,7 @@
     
         <div class="hero-content fade-in">
             
-          <h1 class="hero-title">A New Era in Prenatal Care — Powered by Metabolomics</h1>
+          <h1 class="hero-title">A New Era in Prenatal Care — Powered by Metabolomics </h1>
           <p class="hero-text">
             At PrecizionIQ, we are reimagining the future of prenatal diagnostics. 
             Our mission is to empower every expecting family with access to fast, accurate, 
@@ -64,12 +64,11 @@
     <div class="hero-slide">
       <div class="container">
         <div class="hero-content fade-in">
-          <h1 class="hero-title">
-            Early, Accurate & Non-Invasive Testing
+          <h1 class="hero-titles">
+            Early, Accurate & Non-Invasive Testing for chromosomal abnormalities — giving families the clarity they deserve.
           </h1>
           <p class="hero-text">
-            Early, accurate, and non-invasive testing for chromosomal abnormalities — giving families the clarity they deserve.  
-            We harness cutting-edge high-resolution mass spectrometry and deep expertise in human metabolomics to detect chromosomal abnormalities as early as six weeks into pregnancy.
+           We harness cutting-edge high-resolution mass spectrometry and deep expertise in human metabolomics, our technology enables non-invasive detection of chromosomal abnormalities as early as six weeks into pregnancy.
           </p>
           <div class="btn-wrapper">
             <a (click)="scrollToSection('footer')" class="btn">Book a Consultation</a>
@@ -77,9 +76,9 @@
           </div>
         </div>
 
-        <div class="hero-visual fade-in">
+        <div class="hero-visuals fade-in">
           <!-- Molecular to fetal silhouette illustration -->
-          <img src="assets/images/homeimg.png" alt="Molecular Structure to Fetal Illustration">
+          <img src="assets/images/heroimg2.jpeg" alt="Molecular Structure to Fetal Illustration">
         </div>
       </div>
     </div>
@@ -103,10 +102,16 @@
         <div class="shape shape3"></div>
     </div>
 <section class="services-section">
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="assets/images/aboutv.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
   <div class="services-header fade-in">
     <div class="header-des fade-in">
-      <h1>Driven by Purpose. Backed by Science</h1>
-      <p>
+      <h1 style="color: white;">Driven by Purpose. Backed by Science</h1>
+      <p style="color: white;">
         PrecizionIQ was founded by a team of scientists and entrepreneurs with deep roots in metabolomics, 
         biomarker discovery, and clinical diagnostics. With academic and professional pedigrees from globally 
         respected institutions like IIT, Cornell University, and Baylor College of Medicine, our leadership 
@@ -120,42 +125,6 @@
     <div class="services-container fade-in" id="cardSlider">
 
       <!-- Card 1 -->
-       <div class="service-card fade-in hover-down">
-        <div class="icon-box"><i class="fas fa-users"></i></div>
-        <h3>No Parent Should Decide in Uncertainty</h3>
-        <p class="card-text fade-in">
-          Too often, families face emotional and clinical turmoil due to late-stage or ambiguous prenatal diagnostic results. 
-          We've witnessed the anxiety ourselves, and we believe there's a better way — one where science empowers peace of mind.
-        </p>
-      </div>
-      <div class="service-card fade-in hover-up">
-        <div class="icon-box"><i class="fas fa-globe"></i></div>
-        <h3>Proven Innovation. Real-World Impact.</h3>
-        <p class="card-text fade-in">
-          The PrecizionIQ team has a strong track record of translating research into real-world solutions 
-          that span from therapeutics to agbiotech breakthroughs. We're applying this same translational rigor 
-          to redefine prenatal diagnostics for a broader, more inclusive future. With strong academic and clinical 
-          partnerships, and a deep commitment to equitable healthcare, we are poised to bring precision diagnostics 
-          into mainstream prenatal care — making them accessible not just to a few, but to all.
-        </p>
-      </div>
-
-      <!-- Card 2 -->
-
-      <!-- Card 3 -->
-      <div class="service-card fade-in hover-up">
-        <div class="icon-box"><i class="fas fa-dna"></i></div>
-        <h3>A New Generation of Prenatal Diagnostics</h3>
-        <p class="card-text fade-in">
-          Our mission is to deliver diagnostics that are early, non-invasive, affordable, and clinically actionable. 
-          We’re reimagining how prenatal care is accessed and delivered, leveraging:
-          <br>• Cutting-edge metabolomics and small-molecule profiling
-          <br>• High-resolution mass spectrometry platforms
-          <br>• Proprietary biomarker panels built on validated science.
-        </p>
-      </div>
-
-      <!-- Card 4 -->
       <div class="service-card fade-in hover-down">
         <div class="icon-box"><i class="fas fa-heart"></i></div>
         <h3>Our Story Is Personal</h3>
@@ -164,9 +133,26 @@
         </p>
       </div>
 
+      <!-- Card 3 -->
+      <div class="service-card fade-in hover-up">
+        <div class="icon-box"><i class="fas fa-dna"></i></div>
+        <h3>A New Generation of Prenatal Diagnostics</h3>
+        <p class="card-text fade-in">
+          We harness cutting-edge metabolomics, high-resolution mass spectrometry, and proprietary biomarker panels grounded in validated science.
+        </p>
+      </div>
+
+      <div class="service-card fade-in hover-down">
+        <div class="icon-box"><i class="fas fa-users"></i></div>
+        <h3>No Parent Should Decide in Uncertainty</h3>
+        <p class="card-text fade-in">
+          Too often, families endure emotional and clinical turmoil from late or unclear prenatal results. We’ve seen this anxiety firsthand, and we believe in a better way, where science delivers clarity and peace of mind.
+        </p>
+      </div>
     </div>
   </div>
 </section>
+
 
 
 </section>
@@ -176,114 +162,80 @@
     <h1 class="title">Our Technology</h1>
     <h2 class="subtitle">Precision Diagnostics, Powered by Metabolomics</h2>
     <p class="description">
-      At PrecizionIQ, we combine advanced metabolomics with gentle, non-invasive testing to provide early prenatal diagnostics.
-      Our platform identifies subtle changes in maternal metabolism to detect conditions like Down, Edwards, Patau, Turner, and Klinefelter syndromes,
-      giving parents peace of mind while keeping tests safe and accessible.
+      PrecizionIQ uses high-resolution mass spectrometry and metabolite biomarkers to transform prenatal screening for chromosomal abnormalities. Our non-invasive platform detects conditions like Down, Edwards, Patau, Turner, and Klinefelter syndromes, through subtle changes in maternal metabolism.
     </p>
 
     <div class="benefits-grid">
   <div class="benefit-card">
     <div class="icon-box"><i class="fas fa-vial"></i></div>
     <h3>Ultra-Early Detection</h3>
-    <p>Detects biomarkers as early as six weeks, giving parents timely insights.</p>
+    <p>Detects biomarkers in maternal blood and urine as early as six weeks into gestation, well ahead of conventional methods </p>
   </div>
 
   <div class="benefit-card">
     <div class="icon-box"><i class="fas fa-check-circle"></i></div>
     <h3>High Accuracy</h3>
-    <p>Clinical-grade precision ensures >95% accuracy in distinguishing affected pregnancies.</p>
+    <p>By mapping disease-specific metabolic fingerprints, our technology delivers >95% accuracy in distinguishing affected from unaffected pregnancies</p>
   </div>
 
   <div class="benefit-card">
     <div class="icon-box"><i class="fas fa-syringe"></i></div>
     <h3>Non-Invasive Testing</h3>
-    <p>Simple blood or urine tests—no needles, no procedures, no risk.</p>
+    <p>A simple blood or urine test—no needles, no procedures, no risk.</p>
   </div>
 
   <div class="benefit-card">
     <div class="icon-box"><i class="fas fa-hand-holding-usd"></i></div>
-    <h3>Affordable & Accessible</h3>
-    <p>Tests priced to serve families from all communities, urban and rural.</p>
+    <h3>Affordability at Scale</h3>
+    <p>our tests are priced to serve both urban and rural communities, especially in emerging healthcare systems</p>
   </div>
 
   <div class="benefit-card">
     <div class="icon-box"><i class="fas fa-robot"></i></div>
-    <h3>AI-Supported Insights</h3>
-    <p>Data-driven biomarker analysis to provide focused, clinically validated results.</p>
+    <h3>AI-Enhanced Biomarker Discovery</h3>
+    <p>Each sample is screened across hundreds of thousands of molecular features using machine-assisted data filtering, enabling the identification of a focused panel of highly specific, clinically validated markers.</p>
   </div>
 </div>
 
   </div>
 </section>
-<section id="impact" class="our-impact-section py-5" style="background-image: url('/assets/images/hero-bg.png')">
+<section id="impact" class="our-impact-section py-5">
   <div class="container">
+    <div class="row align-items-center fade-in">
+      
+      <!-- Left Side: Image -->
+      <div class="col-lg-6 text-center mb-4 mb-lg-0">
+        <img src="assets/images/impact2.jpg" alt="Our Impact" class="impact-img">
+      </div>
 
-    <!-- Section Header -->
-    <div class="row fade-in">
-      <div class="col-lg-10 mx-auto text-center mb-5">
-        <h1 class="title">Our Impact</h1>
-        <p class="subtitle">
+      <!-- Right Side: Content -->
+      <div class="col-lg-6">
+        <h1 class="title mb-3">Our Impact</h1>
+        <h3 class="subtitle mb-4">
           Offering A Healthier Start for Every Child by Transforming Prenatal Care Across the Globe
+        </h3>
+        <p class="mb-3">
+          Each year, millions of expecting families in India and around the world are left in the dark 
+          about the health of their unborn children. Current prenatal diagnostic options are often 
+          invasive, expensive, or simply unavailable—particularly in low-resource settings.
         </p>
-      </div>
-    </div>
-
-    <!-- Block 1 -->
-    <div class="row align-items-center mb-5 impact-block fade-in">
-      <div class="col-md-4 text-center mb-3 mb-md-0">
-        <img src="assets/images/download.jpg" alt="Maternal Health" class="impact-img">
-      </div>
-      <div class="col-md-7 gaps">
-        <h3 class="impact-title">Redefining What’s Possible in Maternal Health</h3>
-        <p>
-          Each year, millions of expecting families in India and around the world are left in the dark
-          about the health of their unborn children. Current prenatal diagnostic options are often invasive,
-          expensive, or simply unavailable—particularly in low-resource settings.
+        <p class="mb-3">
+          At <strong class="brand">PrecizionIQ</strong>, we’re breaking these barriers by offering a test 
+          that is accurate, non-invasive, affordable, and usable in the first trimester. We empower families 
+          with clarity, time, and choice — exactly when it matters most.
         </p>
-        <p>
-          At <strong class="brand">PrecizionIQ</strong>, we’re breaking these barriers by offering a test that
-          is accurate, non-invasive, affordable, and usable in the first trimester, empowering families with clarity, time, and choice.
-        </p>
-      </div>
-    </div>
-
-    <!-- Block 2 -->
-    <div class="row align-items-center mb-5 impact-block fade-in flex-row-reverse">
-      <div class="col-md-5 text-center mb-3 mb-md-0">
-        <img src="assets/images/impact2.jpg" alt="Healthy Start" class="impact-img">
-      </div>
-      <div class="col-md-7">
-        <h3 class="impact-title">A Healthier Start for Every Child</h3>
-        <p>By making advanced prenatal testing more accessible, we aim to:</p>
-        <ul>
+        <h5 class="mb-3">By making advanced prenatal testing more accessible, we aim to:</h5>
+        <ul class="impact-list">
           <li>Reduce anxiety for expecting parents</li>
           <li>Provide clinicians with clear, early insights</li>
           <li>Enable better-informed pregnancy decisions</li>
         </ul>
       </div>
-    </div>
 
-    <!-- Block 3 -->
-    <div class="row align-items-center impact-block fade-in">
-      <div class="col-md-4 text-center mb-3 mb-md-0">
-        <img src="assets/images/impact3.jpg" alt="Beyond Disorders" class="impact-img">
-      </div>
-      <div class="col-md-7 gaps">
-        <h3 class="impact-title">Beyond Chromosomal Disorders</h3>
-        <p>
-          Our long-term vision goes beyond current prenatal conditions. As we expand our platform, we
-          aim to enable early screening for other serious inherited and developmental conditions, such as:
-        </p>
-        <ul>
-          <li>Cystic fibrosis</li>
-          <li>Muscular dystrophy</li>
-          <li>Neurodevelopmental disorders (including autism)</li>
-        </ul>
-      </div>
     </div>
-
   </div>
 </section>
+
 
 
 

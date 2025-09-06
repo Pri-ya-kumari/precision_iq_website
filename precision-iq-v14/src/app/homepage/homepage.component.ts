@@ -202,19 +202,54 @@ setSlide(index: number): void {
   }
 
   // -------------------- ANIMATIONS --------------------
-  ngAfterViewInit() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+ngAfterViewInit() {
+  // 🔹 Fade-in animation (aapka existing code)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      } else {
+        entry.target.classList.remove('active');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+    observer.observe(el);
+  });
+
+  // 🔹 Read More / Read Less (120 words limit)
+  const wordLimit = 120;
+
+  document.querySelectorAll('.service-card').forEach(card => {
+    const p = card.querySelector('.card-text') as HTMLElement;
+    const btn = card.querySelector('.read-more-btn') as HTMLElement;
+    if (!p || !btn) return;
+
+    const fullText = p.innerText.trim();
+    const words = fullText.split(/\s+/);
+
+    if (words.length > wordLimit) {
+      const shortText = words.slice(0, wordLimit).join(' ') + '...';
+
+      p.setAttribute('data-full', fullText);
+      p.setAttribute('data-short', shortText);
+      p.innerText = shortText;
+      btn.style.display = 'inline-block';
+
+      btn.addEventListener('click', () => {
+        if (p.innerText === p.getAttribute('data-short')) {
+          p.innerText = p.getAttribute('data-full')!;
+          btn.innerText = 'Read Less';
         } else {
-          entry.target.classList.remove('active');
+          p.innerText = p.getAttribute('data-short')!;
+          btn.innerText = 'Read More';
         }
       });
-    }, { threshold: 0.2 });
+    } else {
+      btn.style.display = 'none'; // agar text short hai to button hide
+    }
+  });
+}
 
-    document.querySelectorAll('.fade-in').forEach(el => {
-      observer.observe(el);
-    });
-  }
 }
