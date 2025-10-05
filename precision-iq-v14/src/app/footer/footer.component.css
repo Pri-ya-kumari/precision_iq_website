@@ -1,11 +1,14 @@
 /* Common Footer Styles */
 footer {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   line-height: 1.6;
+  font-family: "Minerva Modern", Optima, Candara, "Noto Sans", source-sans-pro, sans-serif;
+cursor: pointer;
 }
 
 footer a {
   text-decoration: none;
+  font-family: "Minerva Modern", Optima, Candara, "Noto Sans", source-sans-pro, sans-serif;
   transition: color 0.3s ease;
 }
 
@@ -17,6 +20,8 @@ footer hr {
 .footer-heading {
   font-weight: 600;
   margin-bottom: 1rem;
+  font-family: "Minerva Modern", Optima, Candara, "Noto Sans", source-sans-pro, sans-serif;
+font-size: 1.4rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
