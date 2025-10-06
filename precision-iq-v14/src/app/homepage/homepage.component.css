@@ -208,7 +208,7 @@
 
 /* --- Title --- */
 .benefits-section h1 {
-  font-size: 40px;
+  font-size: 2rem;
   font-weight: bold;
   color: #002C4A;
   margin-bottom: 10px;
@@ -217,7 +217,7 @@
 
 /* --- Subtitle --- */
 .benefits-section h3 {
-  font-size: 22px;
+  font-size: 1rem;
   font-weight: 600;
   margin-bottom: 30px;
   color: #555;
@@ -328,7 +328,7 @@
 }
 
 .titles {
-  font-size: 4rem;
+  font-size: 2.8rem;
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
@@ -756,7 +756,7 @@
 
 /* Typography */
 .title {
-  font-size: 3.5rem;
+  font-size: 2.8rem;
   font-weight: 700;
   text-align: left;
   margin-bottom: 20px;
@@ -765,7 +765,7 @@
 }
 
 .subtitle {
-  font-size: 1rem;
+  font-size: .9rem;
   line-height: 1.2;
   font-weight: 600;
   color: #333333;
@@ -776,7 +776,7 @@
 
 .text, 
 .our-impact-section p {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   color: #333333;
   font-weight: 400;
@@ -967,7 +967,7 @@
 }
 
 .services-header h1 {
-  font-size: 2.8rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: #fff;
   font-family: 'Roboto', sans-serif;
@@ -976,7 +976,7 @@
 }
 
 .services-header p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #f0f0f0;
   line-height: 1.7;
   font-family: 'Open Sans', sans-serif;
@@ -1213,7 +1213,7 @@
 }
 
 .hero-title {
-  font-size: 3rem;
+  font-size: 2.6rem;
   font-weight: 700;
   color: #002c4a;
   margin-bottom: 20px;
@@ -1223,7 +1223,7 @@
 }
 
 .hero-text {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   color: #333;
     flex: 1 1 50%;
