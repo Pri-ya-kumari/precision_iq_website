@@ -247,10 +247,10 @@
 }
 
 .subtitle {
-  font-size: 1.35rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1;
   font-weight: 600;
-  color: #333333;
+  color:red;
   font-family: "Open Sans", Avenir, Montserrat, Corbel, "URW Gothic", source-sans-pro, sans-serif;
   text-align: center;
   margin-bottom: 25px;
@@ -675,8 +675,8 @@
 }
 
 .subtitle {
-  font-size: 1.4rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.2;
   font-weight: 600;
   color: #333333;
   font-family: "Open Sans", Avenir, Montserrat, Corbel, "URW Gothic", source-sans-pro, sans-serif;
@@ -1111,7 +1111,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 80px;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
