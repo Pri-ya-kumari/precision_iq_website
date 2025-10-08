@@ -9,26 +9,43 @@ import { Location } from '@angular/common';
   styleUrls: ['./news-details.component.css']
 })
 export class NewsDetailsComponent implements OnInit {
-
- blog: any;
+  blog: any = null;
+  loading = true;
+  error = false;
 
   constructor(
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
     private location: Location
   ) {}
-goBack() {
-  this.location.back();
-}
+
   ngOnInit(): void {
     const blogId = this.route.snapshot.paramMap.get('id');
+    
     if (blogId) {
-      this.firestore.collection('blogs').doc(blogId).get().subscribe(doc => {
-        if (doc.exists) {
-          this.blog = doc.data();
+      this.firestore.collection('blogs').doc(blogId).get().subscribe({
+        next: (doc) => {
+          if (doc.exists) {
+            this.blog = doc.data();
+          } else {
+            this.error = true;
+            console.error('Blog not found with ID:', blogId);
+          }
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('Error fetching blog:', error);
+          this.error = true;
+          this.loading = false;
         }
       });
+    } else {
+      this.error = true;
+      this.loading = false;
     }
   }
 
+  goBack() {
+    this.location.back();
+  }
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,52 +7,77 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })
-export class HomepageComponent implements AfterViewInit, OnInit {
+export class HomepageComponent implements AfterViewInit, OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private elRef: ElementRef,
     private router: Router,
     private firestore: AngularFirestore
-  ) {}
+  ) { }
+
+  // -------------------- SLIDER --------------------
+  // Change from private to public for template access
+  slideIndex: number = 0;
+  private intervalId: any;
+  isNavbarCollapsed: boolean = false;
+  toggleNavbar(): void {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
+  // Close navbar when clicking outside on mobile
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    const navbar = this.elRef.nativeElement.querySelector('.navbar-collapse');
+    const toggler = this.elRef.nativeElement.querySelector('.navbar-toggler');
+
+    if (navbar && toggler && !navbar.contains(event.target as Node) && !toggler.contains(event.target as Node)) {
+      this.isNavbarCollapsed = false;
+    }
+  }
+  // Close navbar when window is resized to larger screen
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    if (window.innerWidth > 992) { // Bootstrap lg breakpoint
+      this.isNavbarCollapsed = false;
+    }
+  }
 
   // -------------------- SERVICE CARDS --------------------
-serviceCards = [
-{
-    icon: '🌍',
-    title: 'Proven Innovation. Real-World Impact.',
-    description: `The PrecizionIQ team has a strong track record of translating research into real-world solutions that span from therapeutics to agbiotech breakthroughs. We're applying this same translational rigor to redefine prenatal diagnostics for a broader, more inclusive future. With strong academic and clinical partnerships, and a deep commitment to equitable healthcare, we are poised to bring precision diagnostics into mainstream prenatal care — making them accessible not just to a few, but to all.`,
-    expanded: false,
-  },
-  {
-    icon: '👨‍👩‍👧‍👦',
-    title: 'No Parent Should Decide in Uncertainty',
-    description: `Too often, families face emotional and clinical turmoil due to late-stage or ambiguous prenatal diagnostic results. We've witnessed the anxiety ourselves, and we believe there's a better way — one where science empowers peace of mind.`,
-    expanded: false,
-  },
-  {
-    icon: '🧬',
-    title: 'A New Generation of Prenatal Diagnostics',
-    description: `Our mission is to deliver diagnostics that are early, non-invasive, affordable, and clinically actionable. We’re reimagining how prenatal care is accessed and delivered, leveraging:
-    • Cutting-edge metabolomics and small-molecule profiling
-    • High-resolution mass spectrometry platforms
-    • Proprietary biomarker panels built on validated science.`,
-    expanded: false,
-  },
+  serviceCards = [
     {
-    icon: '❤️',
-    title: 'Our Story Is Personal',
-    description: `But beyond the science, our story is personal. We started PrecizionIQ with a single, powerful conviction.`,
-    expanded: false,
-  },
-].map(card => {
-  const words = card.description.trim().split(/\s+/);
-  return {
-    ...card,
-    showReadMore: words.length > 30,
-    previewLimit: 120 // ✅ fix: approx 120 chars ka preview दिखेगा
-  };
-});
-
+      icon: '🌍',
+      title: 'Proven Innovation. Real-World Impact.',
+      description: `The PrecizionIQ team has a strong track record of translating research into real-world solutions that span from therapeutics to agbiotech breakthroughs. We're applying this same translational rigor to redefine prenatal diagnostics for a broader, more inclusive future. With strong academic and clinical partnerships, and a deep commitment to equitable healthcare, we are poised to bring precision diagnostics into mainstream prenatal care — making them accessible not just to a few, but to all.`,
+      expanded: false,
+    },
+    {
+      icon: '👨‍👩‍👧‍👦',
+      title: 'No Parent Should Decide in Uncertainty',
+      description: `Too often, families face emotional and clinical turmoil due to late-stage or ambiguous prenatal diagnostic results. We've witnessed the anxiety ourselves, and we believe there's a better way — one where science empowers peace of mind.`,
+      expanded: false,
+    },
+    {
+      icon: '🧬',
+      title: 'A New Generation of Prenatal Diagnostics',
+      description: `Our mission is to deliver diagnostics that are early, non-invasive, affordable, and clinically actionable. We're reimagining how prenatal care is accessed and delivered, leveraging:
+      • Cutting-edge metabolomics and small-molecule profiling
+      • High-resolution mass spectrometry platforms
+      • Proprietary biomarker panels built on validated science.`,
+      expanded: false,
+    },
+    {
+      icon: '❤️',
+      title: 'Our Story Is Personal',
+      description: `But beyond the science, our story is personal. We started PrecizionIQ with a single, powerful conviction.`,
+      expanded: false,
+    },
+  ].map(card => {
+    const words = card.description.trim().split(/\s+/);
+    return {
+      ...card,
+      showReadMore: words.length > 30,
+      previewLimit: 120
+    };
+  });
 
   toggleExpand(index: number): void {
     this.serviceCards[index].expanded = !this.serviceCards[index].expanded;
@@ -98,12 +123,18 @@ serviceCards = [
     };
   });
 
-  // -------------------- SLIDER --------------------
-  private slideIndex: number = 0;
-  private intervalId: any;
-
   ngOnInit(): void {
     this.loadNewsFromFirebase();
+
+    // Close navbar on route change
+    this.router.events.subscribe(() => {
+      this.isNavbarCollapsed = false;
+    });
+
+    // Start slider after a brief delay to ensure DOM is ready
+    setTimeout(() => {
+      this.startSlider();
+    }, 100);
 
     // blog detail if needed
     const blogId = this.route.snapshot.paramMap.get('id');
@@ -115,8 +146,10 @@ serviceCards = [
       });
     }
 
-    this.showSlide(this.slideIndex); // ✅ sirf initial render ke liye
-
+    // Start slider after a brief delay to ensure DOM is ready
+    setTimeout(() => {
+      this.startSlider();
+    }, 100);
   }
 
   private startSlider(): void {
@@ -124,39 +157,53 @@ serviceCards = [
 
     this.intervalId = setInterval(() => {
       this.nextSlide();
-    }, 6000); // Auto slide every 6s
+    }, 2000); // Auto slide every 6s
+  }
+
+  showSlide(index: number): void {
+    const slides = document.querySelectorAll('.carousel-item');
+    const dots = document.querySelectorAll('.carousel-indicators li');
+
+    if (slides.length === 0) return;
+
+    // Remove active class from all slides
+    slides.forEach(slide => {
+      slide.classList.remove('active');
+    });
+
+    // Remove active class from all dots
+    dots.forEach(dot => {
+      dot.classList.remove('active');
+    });
+
+    this.slideIndex = (index + slides.length) % slides.length;
+
+    // Add active class to current slide and dot
+    slides[this.slideIndex].classList.add('active');
+    if (dots[this.slideIndex]) {
+      dots[this.slideIndex].classList.add('active');
+    }
+  }
+
+  nextSlide(): void {
+    this.showSlide(this.slideIndex + 1);
+  }
+
+  prevSlide(): void {
+    this.showSlide(this.slideIndex - 1);
+  }
+
+  setSlide(index: number): void {
+    this.showSlide(index);
   }
 
 
-showSlide(index: number): void {
-  const slides: NodeListOf<HTMLElement> = document.querySelectorAll('.hero-slide');
-  const dots: NodeListOf<HTMLElement> = document.querySelectorAll('.dot');
-
-  if (slides.length === 0) return;
-
-  this.slideIndex = (index + slides.length) % slides.length;
-
-  slides.forEach((slide, i) => {
-    slide.style.display = i === this.slideIndex ? 'flex' : 'none';
-  });
-
-  dots.forEach((dot, i) => {
-    dot.classList.toggle('active', i === this.slideIndex);
-  });
-}
-
-nextSlide(): void {
-  this.showSlide(this.slideIndex + 1);
-}
-
-prevSlide(): void {
-  this.showSlide(this.slideIndex - 1);
-}
-
-setSlide(index: number): void {
-  this.showSlide(index);
-}
-
+  // Clean up interval on component destroy
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
 
   // -------------------- SCROLL + LOGIN --------------------
   login() {
@@ -178,19 +225,18 @@ setSlide(index: number): void {
     this.firestore.collection('blogs', ref =>
       ref
         .where('isHidden', '==', false)
-        .orderBy('createdAt', 'desc')
-        .limit(5)
     )
-    .snapshotChanges()
-    .subscribe(data => {
-      this.blogs = data.map(item => {
-        const blogData = item.payload.doc.data() as { [key: string]: any };
-        return {
-          id: item.payload.doc.id,
-          ...blogData
-        };
+
+      .snapshotChanges()
+      .subscribe(data => {
+        this.blogs = data.map(item => {
+          const blogData = item.payload.doc.data() as { [key: string]: any };
+          return {
+            id: item.payload.doc.id,
+            ...blogData
+          };
+        });
       });
-    });
   }
 
   goToBlogDetail(id: string) {
@@ -202,54 +248,53 @@ setSlide(index: number): void {
   }
 
   // -------------------- ANIMATIONS --------------------
-ngAfterViewInit() {
-  // 🔹 Fade-in animation (aapka existing code)
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      } else {
-        entry.target.classList.remove('active');
-      }
-    });
-  }, { threshold: 0.2 });
-
-  document.querySelectorAll('.fade-in').forEach(el => {
-    observer.observe(el);
-  });
-
-  // 🔹 Read More / Read Less (120 words limit)
-  const wordLimit = 120;
-
-  document.querySelectorAll('.service-card').forEach(card => {
-    const p = card.querySelector('.card-text') as HTMLElement;
-    const btn = card.querySelector('.read-more-btn') as HTMLElement;
-    if (!p || !btn) return;
-
-    const fullText = p.innerText.trim();
-    const words = fullText.split(/\s+/);
-
-    if (words.length > wordLimit) {
-      const shortText = words.slice(0, wordLimit).join(' ') + '...';
-
-      p.setAttribute('data-full', fullText);
-      p.setAttribute('data-short', shortText);
-      p.innerText = shortText;
-      btn.style.display = 'inline-block';
-
-      btn.addEventListener('click', () => {
-        if (p.innerText === p.getAttribute('data-short')) {
-          p.innerText = p.getAttribute('data-full')!;
-          btn.innerText = 'Read Less';
+  ngAfterViewInit() {
+    // Fade-in animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
         } else {
-          p.innerText = p.getAttribute('data-short')!;
-          btn.innerText = 'Read More';
+          entry.target.classList.remove('active');
         }
       });
-    } else {
-      btn.style.display = 'none'; // agar text short hai to button hide
-    }
-  });
-}
+    }, { threshold: 0.2 });
 
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Read More / Read Less (120 words limit)
+    const wordLimit = 120;
+
+    document.querySelectorAll('.service-card').forEach(card => {
+      const p = card.querySelector('.card-text') as HTMLElement;
+      const btn = card.querySelector('.read-more-btn') as HTMLElement;
+      if (!p || !btn) return;
+
+      const fullText = p.innerText.trim();
+      const words = fullText.split(/\s+/);
+
+      if (words.length > wordLimit) {
+        const shortText = words.slice(0, wordLimit).join(' ') + '...';
+
+        p.setAttribute('data-full', fullText);
+        p.setAttribute('data-short', shortText);
+        p.innerText = shortText;
+        btn.style.display = 'inline-block';
+
+        btn.addEventListener('click', () => {
+          if (p.innerText === p.getAttribute('data-short')) {
+            p.innerText = p.getAttribute('data-full')!;
+            btn.innerText = 'Read Less';
+          } else {
+            p.innerText = p.getAttribute('data-short')!;
+            btn.innerText = 'Read More';
+          }
+        });
+      } else {
+        btn.style.display = 'none';
+      }
+    });
+  }
 }

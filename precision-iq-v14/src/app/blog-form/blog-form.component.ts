@@ -61,14 +61,16 @@ export class BlogFormComponent implements OnInit {
     this.imageURL = '';
     this.blogForm.patchValue({ image: '' });
   }
-  goToBlogDetail(id: string) {
-      if (!id) {
+goToBlogDetail(id: string) {
+  if (!id) {
     console.error('Blog ID is undefined');
+    Swal.fire('Error', 'Blog not found', 'error');
     return;
   }
+  
+  console.log('Navigating to blog detail with ID:', id);
   this.router.navigate(['/NewsDetails', id]);
 }
-
 
 editMode: boolean = false;
 editBlogId: string | null = null;
@@ -170,7 +172,9 @@ loadBlogs() {
       const id = doc.payload.doc.id;
       return { id, ...data };
     });
-    // ✅ अब filter नहीं है, सभी blogs (hidden + visible) दिखेंगे
+    
+    // Optional: Sort manually in memory
+    this.blogs.sort((a, b) => b.createdAt - a.createdAt);
   });
 }
 

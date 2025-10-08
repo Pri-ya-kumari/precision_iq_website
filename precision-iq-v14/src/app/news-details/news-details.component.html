@@ -5,9 +5,19 @@
   </button>
 </header>
 
+<!-- Loading State -->
+<div *ngIf="loading" class="loading-state">
+  <p>Loading blog post...</p>
+</div>
+
+<!-- Error State -->
+<div *ngIf="error && !loading" class="error-state">
+  <p>Blog post not found or error loading content.</p>
+  <button (click)="goBack()">Go Back</button>
+</div>
 
 <!-- News Content -->
-<div class="detail-container" *ngIf="blog">
+<div class="detail-container" *ngIf="blog && !loading">
   <img [src]="blog.image" class="detail-image" />
 
   <h2 class="detail-heading">{{ blog.heading }}</h2>
@@ -18,4 +28,5 @@
     Published on: {{ blog.createdAt?.toDate() | date: 'medium' }}
   </p>
 </div>
+
 <app-footer></app-footer>

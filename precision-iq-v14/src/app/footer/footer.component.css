@@ -27,8 +27,8 @@ font-size: 1.4rem;
 
 /* 🔹 Dark Blue Theme */
 .footer-dark {
-  background: linear-gradient(135deg, #0a1f44, #061d3d);
-  color: #e0e6f1;
+  background-color: #36777e;
+  color: white;
 }
 
 .footer-dark a {
@@ -36,7 +36,7 @@ font-size: 1.4rem;
 }
 
 .footer-dark a:hover {
-  color: #00c2ff;
+  color: #B4E1E3;
 }
 
 /* ⚪ White Theme (minimal clean) */
