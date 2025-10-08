@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
-
+* {
+  overflow: hidden;
+  box-sizing: border-box;
+}
 body {
   font-family: 'Nunito', sans-serif;
   color: #000000;
@@ -101,7 +104,10 @@ a:focus {
 /*header section*/
 .hero_area {
   position: relative;
-  min-height: 100vh;
+  height: 130vh;
+    width: 100%;
+
+  overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
