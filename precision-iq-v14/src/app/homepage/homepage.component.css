@@ -309,7 +309,7 @@ background-color: #ffffff;
 }
 
 .custom_nav-container .navbar-nav .nav-item .nav-link {
-  padding: 5px 20px;
+  padding: 5px 16px;
   color: #ffffff;
   text-align: center;
   text-transform: uppercase;
@@ -320,6 +320,7 @@ background-color: #ffffff;
 
 .custom_nav-container .navbar-nav .nav-item .nav-link:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .custom_nav-container .nav_search-btn {

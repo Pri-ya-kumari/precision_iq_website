@@ -23,16 +23,18 @@ export class HomepageComponent implements AfterViewInit, OnInit, OnDestroy {
   toggleNavbar(): void {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
+
   // Close navbar when clicking outside on mobile
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     const navbar = this.elRef.nativeElement.querySelector('.navbar-collapse');
     const toggler = this.elRef.nativeElement.querySelector('.navbar-toggler');
-
+    
     if (navbar && toggler && !navbar.contains(event.target as Node) && !toggler.contains(event.target as Node)) {
       this.isNavbarCollapsed = false;
     }
   }
+
   // Close navbar when window is resized to larger screen
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
@@ -126,16 +128,6 @@ export class HomepageComponent implements AfterViewInit, OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadNewsFromFirebase();
 
-    // Close navbar on route change
-    this.router.events.subscribe(() => {
-      this.isNavbarCollapsed = false;
-    });
-
-    // Start slider after a brief delay to ensure DOM is ready
-    setTimeout(() => {
-      this.startSlider();
-    }, 100);
-
     // blog detail if needed
     const blogId = this.route.snapshot.paramMap.get('id');
     if (blogId) {
@@ -145,7 +137,9 @@ export class HomepageComponent implements AfterViewInit, OnInit, OnDestroy {
         }
       });
     }
-
+this.router.events.subscribe(() => {
+      this.isNavbarCollapsed = false;
+    });
     // Start slider after a brief delay to ensure DOM is ready
     setTimeout(() => {
       this.startSlider();
@@ -209,13 +203,25 @@ export class HomepageComponent implements AfterViewInit, OnInit, OnDestroy {
   login() {
     this.router.navigate(['/login']);
   }
+scrollToFooter(): void {
+  this.scrollToSection('contact-section');
+}
+scrollToAbout(): void {
+  this.scrollToSection('about-section');
+}
 
-  scrollToSection(sectionId: string): void {
+scrollToSection(sectionId: string): void {
+  // If we're already on homepage, just scroll to section
+  if (this.router.url === '/') {
     const section = this.elRef.nativeElement.querySelector('#' + sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
+  } else {
+    // If we're on another page, navigate to homepage with fragment
+    this.router.navigate(['/'], { fragment: sectionId });
   }
+}
 
   // -------------------- BLOGS --------------------
   blogs: any[] = [];
