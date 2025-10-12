@@ -151,7 +151,7 @@ this.router.events.subscribe(() => {
 
     this.intervalId = setInterval(() => {
       this.nextSlide();
-    }, 2000); // Auto slide every 6s
+    }, 5000); // Auto slide every 6s
   }
 
   showSlide(index: number): void {
@@ -250,7 +250,7 @@ scrollToSection(sectionId: string): void {
       console.error('Blog ID is undefined');
       return;
     }
-    this.router.navigate(['/NewsDetails', id]);
+    this.router.navigate(['/news-details', id]);
   }
 
   // -------------------- ANIMATIONS --------------------
