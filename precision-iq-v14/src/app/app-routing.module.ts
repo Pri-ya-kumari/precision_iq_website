@@ -4,6 +4,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { BlogFormComponent } from './blog-form/blog-form.component';
 import { NewsDetailsComponent } from './news-details/news-details.component';
+import { InvestorRelationsComponent } from './investor-relations/investor-relations.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'create-blog', component: BlogFormComponent },
   { path: 'news-details/:id', component: NewsDetailsComponent },
+  { path: 'investor-relations', component: InvestorRelationsComponent },
   { path: '**', redirectTo: '' }  // Redirect any other invalid path to the root
 ];
 

@@ -1,0 +1,44 @@
+.pdf-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.pdf-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+}
+
+.pdf-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e9f7ff;
+  color: #0d6efd;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.pdf-card h5 {
+  margin-bottom: 0.75rem;
+}
+
+.pdf-card p {
+  color: #6c757d;
+}
+
+.pdf-card a.btn-primary {
+  color: #fff;
+}
+
+.pdf-card a.btn-primary:hover,
+.pdf-card a.btn-primary:focus {
+  color: #fff;
+}
+
+.container {
+  max-width: 1200px;
+}

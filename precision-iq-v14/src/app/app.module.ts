@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { NewsDetailsComponent } from './news-details/news-details.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { InvestorRelationsComponent } from './investor-relations/investor-relations.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     LoginComponent,
     BlogFormComponent,
     NewsDetailsComponent,
-    FooterComponent
+    FooterComponent,
+    InvestorRelationsComponent
   ],
   imports: [
     BrowserModule,
